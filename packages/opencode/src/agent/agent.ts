@@ -90,6 +90,37 @@ export namespace Agent {
         mode: "primary",
         native: true,
       },
+      "auto-build": {
+        name: "auto-build",
+        description: "An autonomous agent that executes tasks and iterates on them using an expert model until success criteria are met.",
+        options: {},
+        permission: PermissionNext.merge(
+          defaults,
+          PermissionNext.fromConfig({
+            question: "allow",
+            plan_enter: "allow",
+            task: "allow",
+            "auto-task": "allow",
+          }),
+          user,
+        ),
+        mode: "primary",
+        native: true,
+      },
+      expert: {
+        name: "expert",
+        description: `Expert subagent used by auto-build to evaluate worker outputs and provide feedback. Its system prompt is dynamically set by auto-task.`,
+        permission: PermissionNext.merge(
+          defaults,
+          PermissionNext.fromConfig({
+            "*": "deny", // Expert should only think and evaluate, not act
+          }),
+          user,
+        ),
+        options: {},
+        mode: "subagent",
+        native: true,
+      },
       plan: {
         name: "plan",
         description: "Plan mode. Disallows all edit tools.",

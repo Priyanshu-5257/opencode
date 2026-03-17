@@ -1,0 +1,1 @@
+Use this tool to execute an autonomous loop where a worker agent performs tasks and an expert agent evaluates the results until success criteria are met.
